@@ -1,0 +1,36 @@
+module tb();
+  reg [1:0] JK;
+  reg clk;
+  wire q,qb;
+  
+  initial begin
+    clk = 1'b1;
+    repeat (20)
+      begin
+      clk = #5 ~clk;
+      end
+  end
+ 
+  jkff jk(.JK(JK),
+          .clk(clk),
+          .q(q),
+          .qb(qb));
+  
+  initial begin
+    JK = 2'b00;
+    #10 JK = 2'b01;
+    #10 JK = 2'b10;
+    #10 JK = 2'b11;
+    #10 JK = 2'b00;
+    #10 JK = 2'b11;
+    #10 JK = 2'b11;
+    #10 JK = 2'b11;
+    #5;
+  end
+  
+  initial begin
+    $dumpfile("dump.vcd"); 
+    $dumpvars(1);
+  end
+  
+endmodule
