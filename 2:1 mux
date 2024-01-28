@@ -1,0 +1,35 @@
+module tb();
+  reg a,b,g,sel;
+  wire y;
+  
+  mux m(.a(a),
+        .b(b),
+        .sel(sel),
+        .g(g),
+        .y(y));
+  
+  initial begin
+    a = 1'b0;
+    b = 1'b0;
+    g = 1'b0;
+    sel = 1'b0;
+    
+    #5 g = 1'b1;
+    #5 g = 1'b0;
+    
+    #5 a = 1'b1;
+    
+    #5 sel = 1'b1;
+    
+    #10 b = 1'b1;
+    
+    #20;
+    
+  end
+  
+  initial begin
+    $dumpfile("dump.vcd"); 
+    $dumpvars(1);
+  end
+  
+endmodule
