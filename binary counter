@@ -1,0 +1,28 @@
+module tb();
+  reg clk,clr;
+  wire [2:0] q;
+  
+  initial begin
+    clk = 1'b1;
+    repeat (20)
+      begin 
+        clk = #5 ~clk;
+      end
+  end
+  
+  binarycount c(.clk(clk),
+              .clr(clr),
+              .q(q));
+  
+  initial begin
+    clr = 1'b0;
+    #60 clr = 1'b1;
+    #10 clr = 1'b0;
+    #100;
+  end
+
+  initial begin
+    $dumpfile("dump.vcd"); 
+    $dumpvars(1);
+  end
+endmodule
